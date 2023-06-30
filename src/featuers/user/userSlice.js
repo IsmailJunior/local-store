@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import {collection, addDoc} from 'firebase/firestore'
 import {firebaseAuth, firebaseStore} from '../../config/firebase'
 
 const initialState = {
-	status: 'idle',  
+	status: 'idle',
+	email: null
 };
 
 const userCollectionRefrence = collection( firebaseStore, 'user' );
@@ -26,6 +27,7 @@ export const logIn = createAsyncThunk( 'user/logIn', async ( { email, password }
 	try
 	{
 		await signInWithEmailAndPassword( firebaseAuth, email, password );
+
 	} catch ( error )
 	{
 		console.log(error.message)
@@ -35,7 +37,12 @@ export const logIn = createAsyncThunk( 'user/logIn', async ( { email, password }
 const userSlice = createSlice( {
 	name: 'user',
 	initialState,
-	reducers: {},
+	reducers: {
+		setEmail ( state )
+		{
+			state.email = firebaseAuth.currentUser.email;
+		}
+	},
 	extraReducers: ( builder ) => {
 		builder.addCase( createUser.pending, ( state ) =>
 		{
@@ -64,4 +71,6 @@ const userSlice = createSlice( {
 	}
 } );
 
+export const selectEmail = ( state ) => state.user.email;
+export const { setEmail } = userSlice.actions;
 export const { actions: userActions, reducer: userReducer } = userSlice;
