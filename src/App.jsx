@@ -16,7 +16,9 @@ const App = () =>
   const userEmail = useSelector( selectEmail );
   const [ isLoggedIn, setIsLoggedIn ] = useState( null );
 
-  onAuthStateChanged( firebaseAuth, ( user ) =>
+  useEffect( () =>
+  {
+    const unsubscrube = onAuthStateChanged( firebaseAuth, ( user ) =>
   {
     if ( !user )
     {
@@ -28,12 +30,9 @@ const App = () =>
       setIsLoggedIn(true)
       console.log(userEmail)
     }
-  } )
-  
-  useEffect( () =>
-  {
-    
-  })
+    } )
+    return unsubscrube;
+  }, [dispatch, userEmail])
 
   return (
     <Routes>
