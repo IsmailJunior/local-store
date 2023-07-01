@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import styled from 'styled-components';
 import {createUser} from '../featuers/user/userSlice'
 import { Control } from './Control';
 export const RegisterForm = () =>
 {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [ firstName, setFirstName ] = useState( '' );
 	const [ lastName, setLastName ] = useState( '' );
 	const [ email, setEmail ] = useState( '' );
@@ -25,11 +26,12 @@ export const RegisterForm = () =>
 		if ( canRegister )
 		{
 			console.log( firstName, lastName, email, password );
-			dispatch( createUser( { email: email, password: password, firstName: firstName, lastName: lastName}) );
+			dispatch( createUser( { email: email, password: password}) );
 			setFirstName( '' );
 			setLastName( '' );
 			setEmail( '' );
 			setPassword( '' );
+			navigate('/sell')
 		}
 	}
 

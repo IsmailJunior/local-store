@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom'
 import styled from 'styled-components';
-import {logIn, selectEmail} from '../featuers/user/userSlice'
+import {logIn, selectUser} from '../featuers/user/userSlice'
 import { Control } from './Control';
 export const LoginForm = () =>
 {
 	const navigate = useNavigate()
 	const dispatch = useDispatch();
-	const userEmail = useSelector(selectEmail)
+	const user = useSelector(selectUser)
 	const [ email, setEmail ] = useState( '' );
 	const [ password, setPassword ] = useState( '' );
 
@@ -22,7 +22,7 @@ export const LoginForm = () =>
 		event.preventDefault();
 		if ( canLogin )
 		{
-			console.log(userEmail );
+			console.log(user );
 			dispatch( logIn( { email: email, password: password}) );
 			setEmail( '' );
 			setPassword( '' );
