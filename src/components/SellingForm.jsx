@@ -24,7 +24,8 @@ export const SellingForm = () =>
 		dispatch( createItem( { uid: uid, productName: productName, productPrice: productPrice, productDetails: productDetails, productImage: productImage } ) );
 		setProductName( '' )
 		setProductPrice( '' )
-		setProductDetails('')
+		setProductDetails( '' )
+		setProductImage( '' )
 	}
   return (
 	  <>

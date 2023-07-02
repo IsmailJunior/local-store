@@ -16,7 +16,6 @@ const VStack = styled.div`
 	flex-direction: column;
 	cursor: pointer;
 	font-weight: 300;
-
 		&:hover {
 		text-decoration: underline;
 	}
