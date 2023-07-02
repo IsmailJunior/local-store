@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { collection, addDoc, doc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { v4 as uuid } from 'uuid';
-import { firebaseStore, firebaseStorage } from '../../config/firebase';
+import { createDocument } from '../../util/document';
+import { uploadFile } from '../../util/upload';
 
 const initialState = {
 	status: 'idle',
@@ -13,12 +11,8 @@ export const createItem = createAsyncThunk( 'sell/createItem', async ( { uid, pr
 {
 	try
 	{
-		const productFileRefrence = ref( firebaseStorage, `${ uid }/products/${ uuid() }` );
-		await uploadBytes( productFileRefrence, productImage );
-		const productImageUrl = await getDownloadURL( productFileRefrence );
-		const userDocuemntRefrence = doc( firebaseStore, 'user', uid );
-		const productCollectionRefrence = collection( userDocuemntRefrence, 'products' );
-		await addDoc( productCollectionRefrence, { productName, productPrice, productDetails, productImageUrl } );
+		const productImageUrl = await uploadFile( uid, productImage );
+		await createDocument( uid, productName, productPrice, productDetails, productImageUrl );
 	} catch ( error )
 	{
 		console.log( error.message );

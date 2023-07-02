@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { firebaseAuth } from '../../config/firebase'
+import { signUpUser, signInUser, signOutUser } from '../../util/auth';
 
 const initialState = {
 	status: 'idle',
@@ -10,7 +9,7 @@ export const createUser = createAsyncThunk( 'user/createUser', async ( { email, 
 {
 	try
 	{
-		await createUserWithEmailAndPassword( firebaseAuth, email, password );
+		await signUpUser( email, password )
 	} catch ( error )
 	{
 		console.log( error.message );
@@ -21,7 +20,7 @@ export const logIn = createAsyncThunk( 'user/logIn', async ( { email, password }
 {
 	try
 	{
-		await signInWithEmailAndPassword( firebaseAuth, email, password );
+		await signInUser( email, password )
 
 	} catch ( error )
 	{
@@ -40,7 +39,7 @@ const userSlice = createSlice( {
 		},
 		logout ( state )
 		{
-			signOut( firebaseAuth );
+			signOutUser();
 			state.user = null;
 			state.status = 'idle'
 		}
