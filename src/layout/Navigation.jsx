@@ -17,7 +17,7 @@ export const Navigation = () =>
 	  <Navbar>
 		  { user ? <button onClick={ onLogOutClicked }>Log Out</button> : <Link to='/log-in'>Log In</Link> }
 		  <Link to='/sell'>Sell</Link>
-		  <h2>Navbar</h2>
+		  <Link to='/products'>Products</Link>
 	</Navbar>
   )
 }
@@ -26,6 +26,8 @@ const Navbar = styled.nav`
 	display: flex;
 	width: 100vw;
 	height: 50px;
+	padding: 5px 20px;
 	background-color: white;
 	border: 1px solid black;
+	gap: 10px;
 `;

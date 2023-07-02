@@ -9,7 +9,8 @@ import { Layout } from './layout/Layout'
 import { HomePage } from './pages/HomePage'
 import { RegisterPage } from './pages/RegisterPage'
 import { LoginPage } from './pages/LoginPage'
-import {SellingPage} from './pages/SellingPage'
+import { SellingPage } from './pages/SellingPage'
+import {ItemsPage} from './pages/ItemsPage'
 const App = () =>
 {
   const [ isLoggedIn, setIsLoggedIn ] = useState( null );
@@ -41,7 +42,8 @@ const App = () =>
         <Route index element={isLoggedIn ? <HomePage /> : <LoginPage />} />
         <Route path='register' element={ <RegisterPage /> } />
         <Route path='log-in' element={ <LoginPage /> } />
-        <Route path='sell' element={isLoggedIn ? <SellingPage /> : <LoginPage />} />
+        <Route path='sell' element={ isLoggedIn ? <SellingPage /> : <LoginPage /> } />
+        <Route path='products' element={<ItemsPage/>} />
       </Route>
     </Routes>
   )

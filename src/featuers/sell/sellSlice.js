@@ -1,19 +1,24 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { collection, addDoc, doc } from 'firebase/firestore';
-import { firebaseStore } from '../../config/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { v4 as uuid } from 'uuid';
+import { firebaseStore, firebaseStorage } from '../../config/firebase';
 
 const initialState = {
 	status: 'idle',
 	uid: null
 };
 
-export const createItem = createAsyncThunk( 'sell/createItem', async ( { uid, productName, productPrice, productDetails } ) =>
+export const createItem = createAsyncThunk( 'sell/createItem', async ( { uid, productName, productPrice, productDetails, productImage } ) =>
 {
 	try
 	{
+		const productFileRefrence = ref( firebaseStorage, `${ uid }/products/${ uuid() }` );
+		await uploadBytes( productFileRefrence, productImage );
+		const productImageUrl = await getDownloadURL( productFileRefrence );
 		const userDocuemntRefrence = doc( firebaseStore, 'user', uid );
 		const productCollectionRefrence = collection( userDocuemntRefrence, 'products' );
-		await addDoc( productCollectionRefrence, { productName, productPrice, productDetails } );
+		await addDoc( productCollectionRefrence, { productName, productPrice, productDetails, productImageUrl } );
 	} catch ( error )
 	{
 		console.log( error.message );
@@ -27,7 +32,6 @@ const sellSlice = createSlice( {
 		updateUser ( state, action ) 
 		{
 			state.uid = action.payload;
-			console.log( current( state ) );
 		}
 	},
 	extraReducers: ( builder ) =>

@@ -8,7 +8,7 @@ export const Container = ({children}) =>
 }
 
 const Div = styled.div`
-	margin: 20px;
+	margin: 50px 100px;
 	display: flex;
 	justify-content: center;
 `;
