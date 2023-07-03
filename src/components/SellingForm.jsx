@@ -20,34 +20,44 @@ export const SellingForm = () =>
 
 	const onSubmit = ( data ) =>
 	{
-		dispatch( createItem( {
+		if ( !data )
+		{
+			console.log('You must fill the fields')
+		} else
+		{
+			dispatch( createItem( {
 			uid: uid,
 			productName: data.productName,
 			productPrice: data.productPrice,
 			productDetails: data.productDetails,
 			productImage: file
 		} ) )
+		}
 	}
   return (
 	  <>
 		  <form onSubmit={handleSubmit(onSubmit)}>
 			  <Group>
 				  <Field>
-					<input type="text" name='productName' placeholder='Product Name' { ...register( 'productName', registerOptions.productName ) } />
+					  <label htmlFor='productName'>Product Name</label>
+					<input id='productName' type="text" name='productName' placeholder='Product Name' { ...register( 'productName', registerOptions.productName ) } />
 				  <span style={{color: 'red'}}>{errors?.productName && errors.productName.message}</span>
 				 </Field>
 				  <Field>
-					<input type="number" name='productPrice' placeholder='Product Price' { ...register( 'productPrice', registerOptions.productPrice ) } />
+					  <label htmlFor='productPrice'>Product Price</label>
+					<input id='productPrice' type="number" name='productPrice' placeholder='Product Price' { ...register( 'productPrice', registerOptions.productPrice ) } />
 				  <span style={{color: 'red'}}>{errors?.productPrice && errors.productPrice.message}</span>
 				  </Field>
 			  </Group>
 			  <Group>
 				  <Field>
-					<input type="text" name='productDetails' placeholder='Product Details' { ...register( 'productDetails', registerOptions.productDetails ) } />
+					  <label htmlFor='productDetails'>Product Details</label>
+					<input id='productDetails' type="text" name='productDetails' placeholder='Product Details' { ...register( 'productDetails', registerOptions.productDetails ) } />
 				  <span style={{color: 'red'}}>{errors?.productDetails && errors.productDetails.message}</span>
 				  </Field>
 				  <Field>
-					<input type="file" name='productImage' value={file} onChange={onFileChange} required/>
+					  <label htmlFor='productImage'>Product Image</label>
+					<input id='productImage' type="file" name='productImage' onChange={onFileChange}/>
 				  </Field>
 			  </Group>
 			  <input type="submit" />
@@ -63,4 +73,6 @@ const Group = styled.div`
 const Field = styled.div`
 	display: flex;
 	flex-direction: column;
+	margin-right: 10px;
+	margin-bottom: 5px;
 `;

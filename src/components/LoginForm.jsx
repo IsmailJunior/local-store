@@ -20,8 +20,14 @@ export const LoginForm = () =>
   return (
 	  <form onSubmit={handleSubmit(onSubmit)}>
 		  <Group>
-			  <input type="email"  { ...register( 'email', registerOptions.email ) } name='email' />
-		  <input type="password" {...register('password')} name='password'/>
+			  <Field>
+				<label htmlFor='email'>Email</label>
+			  <input id='email' type="email"  { ...register( 'email', registerOptions.email ) } name='email' />
+			  </Field>
+			  <Field>
+				  <label htmlFor='password'>Password</label>
+				<input id='password' type="password" {...register('password')} name='password'/>
+			  </Field>
 		  </Group>
 		  <input type="submit" />
 		  <span>Or</span>
@@ -32,4 +38,11 @@ export const LoginForm = () =>
 
 const Group = styled.div`
 	display: flex;
+`;
+
+const Field = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-right: 10px;
+	margin-bottom: 5px;
 `;

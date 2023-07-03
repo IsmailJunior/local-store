@@ -22,10 +22,16 @@ export const RegisterForm = () =>
   return (
 	  <form onSubmit={handleSubmit(onSubmit)}>
 		  <Group>
-			  <input type="email" name='email' { ...register( 'email', registerOptions.email ) } />
-			  <input type='password' name='password' { ...register( 'password', registerOptions.password ) } />
-			  <input type="submit" />
+			  <Field>
+				  <label htmlFor='email'>Email</label>
+				  <input id='email' type="email" name='email' { ...register( 'email', registerOptions.email ) } />
+			  </Field>
+			  <Field>
+				  <label htmlFor='password'>Password</label>
+				  <input id='password' type='password' name='password' { ...register( 'password', registerOptions.password ) } />
+			  </Field>
 		  </Group>
+		<input type="submit" />
 		  <span>Or</span>
 		  <Link to='/log-in'>Log in</Link>
 	</form>
@@ -34,4 +40,11 @@ export const RegisterForm = () =>
 
 const Group = styled.div`
 	display: flex;
+`;
+
+const Field = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-right: 10px;
+	margin-bottom: 5px;
 `;
