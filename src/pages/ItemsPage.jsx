@@ -1,17 +1,27 @@
+import {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
+import { selectItems, selectStatus,listItems } from '../featuers/items/itemsSlice'
+import {selectUid} from '../featuers/sell/sellSlice'
 import { Item } from '../components/Item'
 
 export const ItemsPage = () =>
 {
-	const items = []
-	for ( let i = 0; i < 10; i++ )
+	const dispatch = useDispatch()
+	const items = useSelector( selectItems );
+	const status = useSelector( selectStatus );
+	const uid = useSelector( selectUid )
+	useEffect( () =>
 	{
-		items.push(<Item key={i}/>)
-	}
+		dispatch( listItems( uid ) )
+	}, [dispatch, uid])
+
 	return (
 		<>
 			<HStack>
-				{items}
+				{ status === 'success' ? items.map( (item, i) => (
+					<Item key={i} price={item?.documentPrice} imageUrl={item?.documentImageUrl.url} />
+				)) : <h2>Loading</h2>}
 			</HStack>
 		</>
   )

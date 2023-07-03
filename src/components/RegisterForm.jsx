@@ -9,7 +9,7 @@ export const RegisterForm = () =>
 			email: { required: "Email cannot be blank" },
 			password: {required: "Password cannot be blank" }
 	}
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, formState: {errors} } = useForm();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -25,10 +25,12 @@ export const RegisterForm = () =>
 			  <Field>
 				  <label htmlFor='email'>Email</label>
 				  <input id='email' type="email" name='email' { ...register( 'email', registerOptions.email ) } />
+				<span style={{color: 'red'}}>{errors?.email && errors.email.message}</span>
 			  </Field>
 			  <Field>
 				  <label htmlFor='password'>Password</label>
 				  <input id='password' type='password' name='password' { ...register( 'password', registerOptions.password ) } />
+				<span style={{color: 'red'}}>{errors?.password && errors.password.message}</span>
 			  </Field>
 		  </Group>
 		<input type="submit" />

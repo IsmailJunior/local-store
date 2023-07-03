@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
-export const Item = () =>
+export const Item = ({imageUrl, price}) =>
 {
-	const url = 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/3db71cefac174197af42ac310115b522_9366/Run_Falcon_2.0_Running_Shoes_Black_FY5943_01_standard.jpg'
+	const url = imageUrl
   return (
 	  <VStack>
 		  <Image style={ { backgroundImage: `url(${ url })` } } />
-		  <Text>$19.99</Text>
+		  <Text>${price}</Text>
 	</VStack>
   )
 }

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {useState} from 'react'
 import {useForm} from 'react-hook-form'
 import styled from 'styled-components'
-import {createItem, selectUid} from '../featuers/sell/sellSlice'
+import {createItem, selectUid, selectStatus} from '../featuers/sell/sellSlice'
 
 export const SellingForm = () =>
 {
@@ -15,7 +15,8 @@ export const SellingForm = () =>
 		productDetails: { required: 'This field required' },
 		productImage: {required: 'This field required'}
 	}
-	const uid = useSelector(selectUid)
+	const uid = useSelector( selectUid )
+	const status = useSelector(selectStatus)
 	const dispatch = useDispatch()
 
 	const onSubmit = ( data ) =>
@@ -36,7 +37,7 @@ export const SellingForm = () =>
 	}
   return (
 	  <>
-		  <form onSubmit={handleSubmit(onSubmit)}>
+		{status === 'idle' || status === 'success' ? <form onSubmit={handleSubmit(onSubmit)}>
 			  <Group>
 				  <Field>
 					  <label htmlFor='productName'>Product Name</label>
@@ -61,7 +62,7 @@ export const SellingForm = () =>
 				  </Field>
 			  </Group>
 			  <input type="submit" />
-		  </form>
+		  </form> : <h2>Loading</h2>}
 	  </>
   )
 }

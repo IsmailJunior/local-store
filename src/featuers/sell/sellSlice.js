@@ -45,6 +45,7 @@ const sellSlice = createSlice( {
 	}
 } );
 
+export const selectStatus = ( state ) => state.sell.status;
 export const selectUid = ( state ) => state.sell.uid;
 export const { updateUser } = sellSlice.actions;
 export const { actions: sellActions, reducer: sellReducer } = sellSlice;
