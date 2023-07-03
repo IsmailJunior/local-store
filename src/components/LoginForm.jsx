@@ -1,42 +1,29 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import {Link, useNavigate} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom'
+import {useForm} from 'react-hook-form'
 import styled from 'styled-components';
-import {logIn, selectUser} from '../featuers/user/userSlice'
-import { Control } from './Control';
+import {logIn} from '../featuers/user/userSlice'
 export const LoginForm = () =>
 {
 	const navigate = useNavigate()
 	const dispatch = useDispatch();
-	const user = useSelector(selectUser)
-	const [ email, setEmail ] = useState( '' );
-	const [ password, setPassword ] = useState( '' );
-
-	const onEmailChange = event => setEmail( event.target.value );
-	const onPasswordChange = event => setPassword( event.target.value );
-
-	const canLogin = [email, password ].every( Boolean );
-
-	const onLoginClicked =  (event) =>
+	const { register, handleSubmit } = useForm();
+	const registerOptions = {
+		email: {required: "Email cannot be blank"}
+	}
+	const onSubmit = ( data ) =>
 	{
-		event.preventDefault();
-		if ( canLogin )
-		{
-			console.log(user );
-			dispatch( logIn( { email: email, password: password}) );
-			setEmail( '' );
-			setPassword( '' );
-			navigate('/')
-		}
+		dispatch( logIn( { email: data.email, password: data.password } ) );
+		navigate('/')
 	}
 
   return (
-	  <form action="#">
+	  <form onSubmit={handleSubmit(onSubmit)}>
 		  <Group>
-		<Control value={email} func={onEmailChange} type='email' name='email' id='email' placeholder='john@example.com'>Email</Control>
-		  <Control value={ password } func={ onPasswordChange } type='password' name='password' id='password'>Password</Control>
+			  <input type="email"  { ...register( 'email', registerOptions.email ) } name='email' />
+		  <input type="password" {...register('password')} name='password'/>
 		  </Group>
-		  <button onClick={ onLoginClicked }>Login</button>
+		  <input type="submit" />
 		  <span>Or</span>
 		  <Link to='/register'>Register</Link>
 	</form>
