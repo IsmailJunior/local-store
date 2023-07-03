@@ -1,47 +1,66 @@
-import { useState } from 'react'
-import { useDispatch, useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import {useState} from 'react'
+import {useForm} from 'react-hook-form'
 import styled from 'styled-components'
 import {createItem, selectUid} from '../featuers/sell/sellSlice'
-import { Control } from './Control'
 
 export const SellingForm = () =>
 {
+	const [ file, setFile ] = useState( '' );
+	const onFileChange = ( event ) => setFile(event.target.files[ 0 ]);
+	const { register, handleSubmit, formState: { errors } } = useForm();
+	const registerOptions = {
+		productName: { required: 'This field required' },
+		productPrice: { required: 'This field required' },
+		productDetails: { required: 'This field required' },
+		productImage: {required: 'This field required'}
+	}
 	const uid = useSelector(selectUid)
 	const dispatch = useDispatch()
-	const [ productName, setProductName ] = useState( '' );
-	const [ productPrice, setProductPrice ] = useState( '' );
-	const [ productDetails, setProductDetails ] = useState( '' );
-	const [productImage, setProductImage] = useState('');
-	const onProductNameChange = event => setProductName( event.target.value )
-	const onProductPriceChange = event => setProductPrice( event.target.value )
-	const onProductDetailsChange = event => setProductDetails( event.target.value )
-	const onProductImageChange = event => setProductImage(event.target.files[0])
 
-	const onCreateItemClicked = (event) =>
+	const onSubmit = ( data ) =>
 	{
-		event.preventDefault()
-		dispatch( createItem( { uid: uid, productName: productName, productPrice: productPrice, productDetails: productDetails, productImage: productImage } ) );
-		setProductName( '' )
-		setProductPrice( '' )
-		setProductDetails( '' )
-		setProductImage( '' )
+		dispatch( createItem( {
+			uid: uid,
+			productName: data.productName,
+			productPrice: data.productPrice,
+			productDetails: data.productDetails,
+			productImage: file
+		} ) )
 	}
   return (
 	  <>
-		  <Group>
-			  <Control value={productName} func={onProductNameChange} type='text' name='productName' id='productName' placeholder='Your Product Name'>Product Name</Control>
-			  <Control value={productPrice} func={onProductPriceChange} type='number' name='productPrice' id='productPrice' placeholder='$0.00'>Product Price</Control>
-		  </Group>
-		  <Group>
-			  <Control value={ productDetails } func={ onProductDetailsChange } type='text' name='productDetails' id='productDetails' placeholder='Product Details'>Product Details</Control>
-			<Control  func={onProductImageChange} type='file' name='productImage' id='productImage'/>
-		  </Group>
-		  <button onClick={onCreateItemClicked}>Create Item</button>
+		  <form onSubmit={handleSubmit(onSubmit)}>
+			  <Group>
+				  <Field>
+					<input type="text" name='productName' placeholder='Product Name' { ...register( 'productName', registerOptions.productName ) } />
+				  <span style={{color: 'red'}}>{errors?.productName && errors.productName.message}</span>
+				 </Field>
+				  <Field>
+					<input type="number" name='productPrice' placeholder='Product Price' { ...register( 'productPrice', registerOptions.productPrice ) } />
+				  <span style={{color: 'red'}}>{errors?.productPrice && errors.productPrice.message}</span>
+				  </Field>
+			  </Group>
+			  <Group>
+				  <Field>
+					<input type="text" name='productDetails' placeholder='Product Details' { ...register( 'productDetails', registerOptions.productDetails ) } />
+				  <span style={{color: 'red'}}>{errors?.productDetails && errors.productDetails.message}</span>
+				  </Field>
+				  <Field>
+					<input type="file" name='productImage' value={file} onChange={onFileChange} required/>
+				  </Field>
+			  </Group>
+			  <input type="submit" />
+		  </form>
 	  </>
   )
 }
 
 const Group = styled.div`
 	display: flex;
+`;
+
+const Field = styled.div`
+	display: flex;
+	flex-direction: column;
 `;
