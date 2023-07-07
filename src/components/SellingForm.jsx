@@ -1,8 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux'
 import {useState} from 'react'
 import {useForm} from 'react-hook-form'
 import styled from 'styled-components'
-import {createItem, selectUid, selectStatus} from '../featuers/sell/sellSlice'
 
 export const SellingForm = () =>
 {
@@ -15,10 +13,6 @@ export const SellingForm = () =>
 		productDetails: { required: 'This field required' },
 		productImage: {required: 'This field required'}
 	}
-	const uid = useSelector( selectUid )
-	const status = useSelector(selectStatus)
-	const dispatch = useDispatch()
-
 	const onSubmit = ( data ) =>
 	{
 		if ( !data )
@@ -26,44 +20,38 @@ export const SellingForm = () =>
 			console.log('You must fill the fields')
 		} else
 		{
-			dispatch( createItem( {
-			uid: uid,
-			productName: data.productName,
-			productPrice: data.productPrice,
-			productDetails: data.productDetails,
-			productImage: file
-		} ) )
+			return 'ok'
 		}
 	}
   return (
-	  <>
-		{status === 'idle' || status === 'success' ? <form onSubmit={handleSubmit(onSubmit)}>
-			  <Group>
-				  <Field>
-					  <label htmlFor='productName'>Product Name</label>
+	<>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<Group>
+				<Field>
+					<label htmlFor='productName'>Product Name</label>
 					<input id='productName' type="text" name='productName' placeholder='Product Name' { ...register( 'productName', registerOptions.productName ) } />
-				  <span style={{color: 'red'}}>{errors?.productName && errors.productName.message}</span>
-				 </Field>
-				  <Field>
-					  <label htmlFor='productPrice'>Product Price</label>
+				<span style={{color: 'red'}}>{errors?.productName && errors.productName.message}</span>
+				</Field>
+				<Field>
+					<label htmlFor='productPrice'>Product Price</label>
 					<input id='productPrice' type="number" name='productPrice' placeholder='Product Price' { ...register( 'productPrice', registerOptions.productPrice ) } />
-				  <span style={{color: 'red'}}>{errors?.productPrice && errors.productPrice.message}</span>
-				  </Field>
-			  </Group>
-			  <Group>
-				  <Field>
-					  <label htmlFor='productDetails'>Product Details</label>
+				<span style={{color: 'red'}}>{errors?.productPrice && errors.productPrice.message}</span>
+				</Field>
+			</Group>
+			<Group>
+				<Field>
+					<label htmlFor='productDetails'>Product Details</label>
 					<input id='productDetails' type="text" name='productDetails' placeholder='Product Details' { ...register( 'productDetails', registerOptions.productDetails ) } />
-				  <span style={{color: 'red'}}>{errors?.productDetails && errors.productDetails.message}</span>
-				  </Field>
-				  <Field>
-					  <label htmlFor='productImage'>Product Image</label>
+				<span style={{color: 'red'}}>{errors?.productDetails && errors.productDetails.message}</span>
+				</Field>
+				<Field>
+					<label htmlFor='productImage'>Product Image</label>
 					<input id='productImage' type="file" name='productImage' onChange={onFileChange}/>
-				  </Field>
-			  </Group>
-			  <input type="submit" />
-		  </form> : <h2>Loading</h2>}
-	  </>
+				</Field>
+			</Group>
+			<input type="submit" />
+		</form>
+	</>
   )
 }
 

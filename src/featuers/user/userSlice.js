@@ -3,7 +3,8 @@ import { signUpUser, signInUser, signOutUser } from '../../util/auth';
 
 const initialState = {
 	status: 'idle',
-	user: null
+	user: null,
+	uid: null
 };
 export const createUser = createAsyncThunk( 'user/createUser', async ( { email, password } ) =>
 {
@@ -34,7 +35,8 @@ const userSlice = createSlice( {
 	reducers: {
 		login ( state, action )
 		{
-			const { email } = action.payload;
+			const { email, uid } = action.payload;
+			state.uid = uid
 			state.user = email;
 		},
 		logout ( state )
@@ -71,7 +73,7 @@ const userSlice = createSlice( {
 			})
 	}
 } );
-
+export const selectUid = ( state ) => state.user.uid;
 export const selectUser = ( state ) => state.user.user;
 export const { login, logout } = userSlice.actions;
 export const { actions: userActions, reducer: userReducer } = userSlice;

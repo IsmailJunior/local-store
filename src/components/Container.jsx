@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = ({children}) =>
 {
   return (
-	  <Div>{children}</Div>
+	<Div>{children}</Div>
   )
 }
 

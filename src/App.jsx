@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react'
 import {useDispatch} from 'react-redux'
 import { onAuthStateChanged } from 'firebase/auth'
 import { login, logout } from './featuers/user/userSlice'
-import {updateUser, } from './featuers/sell/sellSlice'
 import { firebaseAuth } from './config/firebase'
 import { Layout } from './layout/Layout'
 import { HomePage } from './pages/HomePage'
 import { RegisterPage } from './pages/RegisterPage'
 import { LoginPage } from './pages/LoginPage'
 import { SellingPage } from './pages/SellingPage'
-import {ItemsPage} from './pages/ItemsPage'
+import { ItemsPage } from './pages/ItemsPage'
+import {ItemPage} from './pages/ItemPage'
 const App = () =>
 {
   const [ isLoggedIn, setIsLoggedIn ] = useState( null );
@@ -27,9 +27,9 @@ const App = () =>
     } else
     {
       dispatch( login( {
-        email: user.email
+        email: user.email,
+        uid: user.uid
       } ) );
-      dispatch( updateUser( user.uid ) );
       setIsLoggedIn(true)
     }
     } )
@@ -43,7 +43,8 @@ const App = () =>
         <Route path='register' element={ <RegisterPage /> } />
         <Route path='log-in' element={ <LoginPage /> } />
         <Route path='sell' element={ isLoggedIn ? <SellingPage /> : <LoginPage /> } />
-        <Route path='products' element={<ItemsPage/>} />
+        <Route path='products' element={ <ItemsPage /> } />
+        <Route path='products/:productId' element={<ItemPage />} />
       </Route>
     </Routes>
   )

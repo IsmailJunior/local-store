@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 
-export const Item = ({imageUrl, price}) =>
+export const Item = ({imageUrl, price, title}) =>
 {
 	const url = imageUrl
   return (
-	  <VStack>
-		  <Image style={ { backgroundImage: `url(${ url })` } } />
-		  <Text>${price}</Text>
+	<VStack>
+		<Text>{title}</Text>
+		<Image style={ { backgroundImage: `url(${ url })` } } />
+		<Text>${price}</Text>
 	</VStack>
   )
 }

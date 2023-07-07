@@ -20,22 +20,22 @@ export const RegisterForm = () =>
 	}
 
   return (
-	  <form onSubmit={handleSubmit(onSubmit)}>
-		  <Group>
-			  <Field>
-				  <label htmlFor='email'>Email</label>
-				  <input id='email' type="email" name='email' { ...register( 'email', registerOptions.email ) } />
+	<form onSubmit={handleSubmit(onSubmit)}>
+		<Group>
+			<Field>
+				<label htmlFor='email'>Email</label>
+				<input id='email' type="email" name='email' { ...register( 'email', registerOptions.email ) } />
 				<span style={{color: 'red'}}>{errors?.email && errors.email.message}</span>
-			  </Field>
-			  <Field>
-				  <label htmlFor='password'>Password</label>
-				  <input id='password' type='password' name='password' { ...register( 'password', registerOptions.password ) } />
+			</Field>
+			<Field>
+				<label htmlFor='password'>Password</label>
+				<input id='password' type='password' name='password' { ...register( 'password', registerOptions.password ) } />
 				<span style={{color: 'red'}}>{errors?.password && errors.password.message}</span>
-			  </Field>
-		  </Group>
+			</Field>
+		</Group>
 		<input type="submit" />
-		  <span>Or</span>
-		  <Link to='/log-in'>Log in</Link>
+		<span>Or</span>
+		<Link to='/log-in'>Log in</Link>
 	</form>
   )
 }

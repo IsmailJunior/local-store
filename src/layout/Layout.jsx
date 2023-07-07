@@ -3,12 +3,12 @@ import { Navigation } from './Navigation'
 import {Container} from '../components/Container'
 export const Layout = () => {
 	return (
-		<>
-	  	<Navigation />
-	  <Container>
-		  <Outlet />
-			</Container>
-			</>
+	<>
+	<Navigation />
+	<Container>
+		<Outlet />
+	</Container>
+	</>
   )
 }
 

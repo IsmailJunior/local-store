@@ -14,10 +14,10 @@ export const Navigation = () =>
 	}
 
   return (
-	  <Navbar>
-		  { user ? <button onClick={ onLogOutClicked }>Log Out</button> : <Link to='/log-in'>Log In</Link> }
-		  <Link to='/sell'>Sell</Link>
-		  <Link to='/products'>Products</Link>
+	<Navbar>
+		{ user ? <button onClick={ onLogOutClicked }>Log Out</button> : <Link to='/log-in'>Log In</Link> }
+		<Link to='/sell'>Sell</Link>
+		<Link to='/products'>Products</Link>
 	</Navbar>
   )
 }
