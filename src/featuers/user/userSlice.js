@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { signUpUser, signInUser, signOutUser } from '../../util/auth';
+import { signUpUser, signInUser, signOutUser } from '../../util/auth'
 
 const initialState = {
 	status: 'idle',

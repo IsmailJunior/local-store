@@ -1,5 +1,5 @@
 import { getDocs, collection, getDoc, doc } from 'firebase/firestore';
-import { firebaseStore } from '../config/firebase';
+import { firebaseStore } from '../config/firebase'
 
 export const getItems = async ( collectionRefrence, uid, subCollection ) =>
 {
@@ -26,7 +26,7 @@ export const getItem = async ( collectionRefrence, uid, subCollection, productId
 		const documentRefrence = doc( documentCollectionRefrence, productId );
 		const documentSnapshot = await getDoc( documentRefrence );
 		return {
-			data: documentSnapshot.data()
+			data: documentSnapshot?.data()
 		};
 	} catch ( error )
 	{

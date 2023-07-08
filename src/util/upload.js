@@ -1,6 +1,6 @@
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
-import { firebaseStorage } from '../config/firebase';
+import { firebaseStorage } from '../config/firebase'
 
 export const uploadFile = async ( userUid, documentFile ) =>
 {

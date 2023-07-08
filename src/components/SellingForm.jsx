@@ -1,9 +1,14 @@
 import {useState} from 'react'
-import {useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import {useSelector} from 'react-redux'
 import styled from 'styled-components'
+import {selectUid} from '../featuers/user/userSlice'
+import { createDocument } from '../util/document'
+import {uploadFile} from '../util/upload'
 
 export const SellingForm = () =>
 {
+	const uid = useSelector( selectUid );
 	const [ file, setFile ] = useState( '' );
 	const onFileChange = ( event ) => setFile(event.target.files[ 0 ]);
 	const { register, handleSubmit, formState: { errors } } = useForm();
@@ -13,14 +18,22 @@ export const SellingForm = () =>
 		productDetails: { required: 'This field required' },
 		productImage: {required: 'This field required'}
 	}
-	const onSubmit = ( data ) =>
+
+	const onSubmit = async ( data ) =>
 	{
 		if ( !data )
 		{
 			console.log('You must fill the fields')
 		} else
 		{
-			return 'ok'
+			try
+			{
+				const image = await uploadFile( uid,file );
+				await createDocument( uid, data.productName, data.productPrice, data.productDetails, image.url );
+			} catch ( error )
+			{
+				console.log(error.message)
+			}
 		}
 	}
   return (

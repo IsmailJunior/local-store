@@ -1,7 +1,7 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import {useForm} from 'react-hook-form'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import {createUser} from '../featuers/user/userSlice'
 export const RegisterForm = () =>
 {
