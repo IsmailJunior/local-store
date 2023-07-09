@@ -23,6 +23,7 @@ export const Navigation = () =>
 		{ user ? <Button variant='contained' onClick={ onLogOutClicked }>Log Out</Button> : <Link to='/log-in'>Log In</Link> }
 		<Link to='/sell'>Sell</Link>
 		<Link to='/products'>Products</Link>
+		<Link to='/'>Home</Link>
 		</Stack>
 		</Box>
 		</Container>
