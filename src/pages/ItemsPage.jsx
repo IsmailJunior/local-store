@@ -5,19 +5,28 @@ import styled from 'styled-components';
 import {selectUid} from '../featuers/user/userSlice'
 import {getItems} from '../util/items'
 import { Item } from '../components/Item'
+import {Holder} from '../components/Holder'
 
 export const ItemsPage = () =>
 {
 	const navigate = useNavigate();
-	const uid = useSelector(selectUid)
+	const uid = useSelector( selectUid )
+	const [isLoading, setIsLoading] = useState(false)
 	const [ items, setItems ] = useState( [] )
 	useEffect( () =>
 	{
 		( async () =>
 		{
+			try {
+			setIsLoading(true)
 			const request = await getItems( 'user', uid, 'products' );
-			setItems(request.data)
+			setItems( request.data )
+			setIsLoading(false)
 			return request;
+			} catch ( error )
+			{
+				console.log(error.message)
+			}
 		})()
 	}, [ uid ] )
 	
@@ -28,13 +37,12 @@ export const ItemsPage = () =>
 	return (
 		<>
 			<HStack>
-				{items ? items?.map( ( item, i ) =>
+				{ items?.map( ( item, i ) =>
 				(
-						<div onClick={() => onItemClicked(item.tempId)} key={ i }>
-							<Item title={item.documentName} price={item.documentPrice} imageUrl={item.documentImageUrl}/>
-						</div>
-					
-				)) : <h2>Loading</h2>}
+					items && !isLoading ? <div style={ { cursor: 'pointer' } } onClick={ () => onItemClicked( item.tempId ) } key={ i }>
+						<Item title={ item.documentName } price={ item.documentPrice } imageUrl={ item.documentImageUrl } />
+					</div> : <Holder key={ i } />
+				))}
 			</HStack>
 		</>
   )

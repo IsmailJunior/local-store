@@ -1,37 +1,20 @@
-import styled from 'styled-components'
-
-export const Item = ({imageUrl, price, title}) =>
+import Card from '@mui/material/Card'
+import CardMedia from '@mui/material/CardMedia'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+export const Item = ( { imageUrl, price, title } ) =>
 {
-	const url = imageUrl
   return (
-	<VStack>
-		<Text>{title}</Text>
-		<Image style={ { backgroundImage: `url(${ url })` } } />
-		<Text>${price}</Text>
-	</VStack>
+	<Card sx={{maxWidth: 345}}>
+		<CardMedia component='img' sx={ { height: 400, width: 300 } } image={ imageUrl } />
+		<CardContent>
+			<Typography gutterBottom variant='h5' component='div'>
+				{title}
+			</Typography>
+			<Typography gutterBottom variant='h3' component='div'>
+				${price}
+			</Typography>
+		</CardContent>
+	</Card>
   )
 }
-
-const VStack = styled.div`
-	display: flex;
-	flex-direction: column;
-	cursor: pointer;
-	font-weight: 300;
-		&:hover {
-		text-decoration: underline;
-	}
-`;
-
-const Image = styled.div`
-	width: 200px;
-	height: 200px;
-	background-position: center;
-	background-repeat: np-repeat;
-	background-size: cover;
-`;
-
-const Text = styled.h1`
-	font-size: 25px;
-	font-weight: 600;
-	margin-top: 15px;
-`;

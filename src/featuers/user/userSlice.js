@@ -69,7 +69,7 @@ const userSlice = createSlice( {
 			} ),
 			builder.addCase( logIn.fulfilled, ( state ) =>
 			{
-				state.status = 'success'
+				state.status = 'success';
 			})
 	}
 } );

@@ -43,8 +43,8 @@ const App = () =>
         <Route path='register' element={ <RegisterPage /> } />
         <Route path='log-in' element={ <LoginPage /> } />
         <Route path='sell' element={ isLoggedIn ? <SellingPage /> : <LoginPage /> } />
-        <Route path='products' element={ <ItemsPage /> } />
-        <Route path='products/:productId' element={<ItemPage />} />
+        <Route path='products' element={ isLoggedIn ? <ItemsPage /> : <LoginPage /> } />
+        <Route path='products/:productId' element={isLoggedIn ? <ItemPage /> : <LoginPage />} />
       </Route>
     </Routes>
   )

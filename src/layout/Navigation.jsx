@@ -1,6 +1,9 @@
-import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
 import {logout, selectUser} from '../featuers/user/userSlice'
 
 export const Navigation = () =>
@@ -13,21 +16,15 @@ export const Navigation = () =>
 		dispatch( logout() );
 	}
 
-  return (
-	<Navbar>
-		{ user ? <button onClick={ onLogOutClicked }>Log Out</button> : <Link to='/log-in'>Log In</Link> }
+	return (
+		<Container maxWidth='lg'>
+		<Box component='nav' sx={{p: 2}}>
+		<Stack spacing={2} direction='row'>
+		{ user ? <Button variant='contained' onClick={ onLogOutClicked }>Log Out</Button> : <Link to='/log-in'>Log In</Link> }
 		<Link to='/sell'>Sell</Link>
 		<Link to='/products'>Products</Link>
-	</Navbar>
+		</Stack>
+		</Box>
+		</Container>
   )
 }
-
-const Navbar = styled.nav`
-	display: flex;
-	width: 100vw;
-	height: 50px;
-	padding: 5px 20px;
-	background-color: white;
-	border: 1px solid black;
-	gap: 10px;
-`;
