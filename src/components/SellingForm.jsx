@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { createDocument } from '../util/document'
+import { createDocument, updateDocument } from '../util/document'
 import { uploadFile } from '../util/upload'
 import Stack from '@mui/material/Stack'
 import Input from '@mui/material/Input'
@@ -33,8 +33,10 @@ export const SellingForm = () =>
 		{
 			try
 			{
-				const image = await uploadFile(file);
-				await createDocument( data.productName, data.productPrice, data.productDetails, image.url );
+				const documentId = await createDocument( data.productName, data.productPrice, data.productDetails );
+				const image = await uploadFile( documentId.tempId,file );
+				await updateDocument( documentId.tempId, image.url, image.id.metadata.name )
+				console.log(documentId.tempId, image.id.metadata.name)
 				setLoading( false )
 				navigate('/products')
 				
@@ -69,7 +71,7 @@ export const SellingForm = () =>
 					<Input  id='productImage' type='file' name='productImage' onChange={onFileChange}/>
 				</Stack>
 			</Stack>
-				<LoadingButton loading={loading} variant='outlined' color='success' type="submit">Create</LoadingButton>
+				<LoadingButton loading={loading} variant='contained' type="submit">Create</LoadingButton>
 				</Stack>
 		</form>
 	</>

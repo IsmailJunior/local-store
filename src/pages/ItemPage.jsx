@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import {deleteItem} from '../util/items'
 import { selectUid } from '../featuers/user/userSlice'
-import {getItem} from '../util/items'
+import { getItem } from '../util/items'
+import {deleteFile} from '../util/upload'
 import { Item } from '../components/Item';
 import {Holder} from '../components/Holder'
 
@@ -21,7 +22,9 @@ export const ItemPage = () =>
 		try
 		{
 			setLoading(true)
-			await deleteItem( 'products', productId );
+			const documentRefrence = await getItem( 'products', productId )
+			await deleteFile( documentRefrence.data.tempId,documentRefrence.data.imageId)
+			await deleteItem( 'products', productId )
 			navigate('/products')
 		} catch ( error )
 		{

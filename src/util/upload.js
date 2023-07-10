@@ -1,22 +1,35 @@
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
 import { firebaseStorage } from '../config/firebase'
 
-export const uploadFile = async ( documentFile ) =>
+export const uploadFile = async ( tempId, documentFile ) =>
 {
 	try
 	{
-		const filePath = `products/${ uuid() }`;
+		const filePath = `${ tempId }/${ uuid() }`;
 		const documentFileRefrence = ref( firebaseStorage, filePath );
-		await uploadBytes( documentFileRefrence, documentFile );
+		const fileRefrence = await uploadBytes( documentFileRefrence, documentFile );
 		const documentFileUrl = await getDownloadURL( documentFileRefrence );
 		return {
-			url: documentFileUrl
+			url: documentFileUrl,
+			id: fileRefrence
 		};
 	} catch ( error )
 	{
 		return {
 			error: error.messeage
 		};
+	}
+};
+
+export const deleteFile = async ( fileId, tempId ) =>
+{
+	try
+	{
+		const fileRefrence = ref( firebaseStorage, `${ fileId }/${ tempId }` );
+		await deleteObject( fileRefrence );
+	} catch ( error )
+	{
+		console.log( error.messeage );
 	}
 };
