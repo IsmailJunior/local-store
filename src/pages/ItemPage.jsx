@@ -51,7 +51,7 @@ export const ItemPage = () =>
 	}, [uid, productId])
   return (
 	<>
-		{item && !isLoading ? <Item loading={loading} action={onDeleteClicked} title={item.documentName} price={item.documentPrice} imageUrl={item.documentImageUrl}/> : <Holder />}
+		{item && !isLoading ? <Item listActions loading={loading} action={onDeleteClicked} title={item.documentName} price={item.documentPrice} imageUrl={item.documentImageUrl}/> : <Holder />}
 	</>
   )
 }

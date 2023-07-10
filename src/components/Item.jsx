@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
 import LoadingButton from '@mui/lab/LoadingButton'
 import CardActions from '@mui/material/CardActions'
-export const Item = ( { imageUrl, price, title, action, loading } ) =>
+export const Item = ( { imageUrl, price, title, action, loading, listActions } ) =>
 {
   return (
 	<Card sx={{maxWidth: 345}}>
@@ -18,9 +18,9 @@ export const Item = ( { imageUrl, price, title, action, loading } ) =>
 			<Typography display='inline'  variant='h3' component='div'>
 					{price}
 			</Typography>
-			<CardActions>
+				{listActions ? <CardActions>
 				<LoadingButton loading={loading} onClick={action} variant='contained' color='error'>Delete</LoadingButton>
-			</CardActions>
+			</CardActions> : null}
 		</CardContent>
 	</Card>
   )

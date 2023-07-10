@@ -4,6 +4,10 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import SellIcon from '@mui/icons-material/Sell'
+import HomeIcon from '@mui/icons-material/Home'
+ import CategoryIcon from '@mui/icons-material/Category'
 import {logout, selectUser} from '../featuers/user/userSlice'
 
 export const Navigation = () =>
@@ -19,11 +23,26 @@ export const Navigation = () =>
 	return (
 		<Container maxWidth='lg'>
 		<Box component='nav' sx={{p: 2}}>
-		<Stack spacing={2} direction='row'>
-		{ user ? <Button variant='contained' onClick={ onLogOutClicked }>Log Out</Button> : <Link to='/log-in'>Log In</Link> }
-		<Link to='/sell'>Sell</Link>
-		<Link to='/products'>Products</Link>
-		<Link to='/'>Home</Link>
+		<Stack alignItems='center' spacing={2} direction='row'>
+					{ user ? <Button variant='contained' onClick={ onLogOutClicked }>Log Out</Button> : <Link to='/log-in'>Log In</Link> }
+		<Link style={{textDecoration: 'none'}} to='/sell'>
+		<Stack alignItems='center' spacing={1} direction='row'>
+			<SellIcon />	
+			<Typography>Sell</Typography>		
+		</Stack>
+		</Link>	
+		<Link style={{textDecoration: 'none'}}  to='/products'>
+		<Stack alignItems='center' spacing={ 1 } direction='row'>
+		<CategoryIcon />
+			<Typography>Products</Typography>	
+		</Stack>
+		</Link>
+		<Link style={{textDecoration: 'none'}} to='/'>
+		<Stack alignItems='center' spacing={ 1 } direction='row'>
+			<HomeIcon />
+			<Typography>Home</Typography>	
+		</Stack>
+		</Link>	
 		</Stack>
 		</Box>
 		</Container>

@@ -40,7 +40,7 @@ export const ItemsPage = () =>
 				{ items?.map( ( item, i ) =>
 				(
 					items && !isLoading ? <div style={ { cursor: 'pointer' } } onClick={ () => onItemClicked( item.tempId ) } key={ i }>
-						<Item title={ item.documentName } price={ item.documentPrice } imageUrl={ item.documentImageUrl } />
+						<Item  title={ item.documentName } price={ item.documentPrice } imageUrl={ item.documentImageUrl } />
 					</div> : <Holder key={ i } />
 				))}
 			</Stack>
