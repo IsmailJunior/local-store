@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import SellIcon from '@mui/icons-material/Sell'
 import HomeIcon from '@mui/icons-material/Home'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
  import CategoryIcon from '@mui/icons-material/Category'
 import {logout, selectUser} from '../featuers/user/userSlice'
 
@@ -24,7 +25,14 @@ export const Navigation = () =>
 		<Container maxWidth='lg'>
 		<Box component='nav' sx={{p: 2}}>
 		<Stack alignItems='center' spacing={2} direction='row'>
-					{ user ? <Button variant='contained' onClick={ onLogOutClicked }>Log Out</Button> : <Link to='/log-in'>Log In</Link> }
+		{
+		user ? <Button variant='contained' onClick={ onLogOutClicked }>Log Out</Button> :
+			<Link style={{textDecoration: 'none'}} to='/log-in'>
+				<Stack alignItems='center' spacing={1} direction='row'>
+					<AccountCircleIcon />		
+					<Typography>Log in</Typography>				
+				</Stack>
+			</Link> }
 		<Link style={{textDecoration: 'none'}} to='/sell'>
 		<Stack alignItems='center' spacing={1} direction='row'>
 			<SellIcon />	
