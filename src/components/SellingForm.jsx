@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
-import {selectUid} from '../featuers/user/userSlice'
 import { createDocument } from '../util/document'
 import { uploadFile } from '../util/upload'
 import Stack from '@mui/material/Stack'
@@ -13,7 +11,6 @@ import TextField from '@mui/material/TextField'
 export const SellingForm = () =>
 {
 	const navigate = useNavigate()
-	const uid = useSelector( selectUid );
 	const [ file, setFile ] = useState( '' );
 	const onFileChange = ( event ) => setFile(event.target.files[ 0 ]);
 	const { register, handleSubmit, formState: { errors } } = useForm();
@@ -36,8 +33,8 @@ export const SellingForm = () =>
 		{
 			try
 			{
-				const image = await uploadFile( uid,file );
-				await createDocument( uid, data.productName, data.productPrice, data.productDetails, image.url );
+				const image = await uploadFile(file);
+				await createDocument( data.productName, data.productPrice, data.productDetails, image.url );
 				setLoading( false )
 				navigate('/products')
 				

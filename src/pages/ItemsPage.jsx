@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import styled from 'styled-components';
-import {selectUid} from '../featuers/user/userSlice'
+import { selectUid } from '../featuers/user/userSlice'
+import Stack from '@mui/material/Stack'
 import {getItems} from '../util/items'
 import { Item } from '../components/Item'
-import {Holder} from '../components/Holder'
+import { Holder } from '../components/Holder'
 
 export const ItemsPage = () =>
 {
@@ -17,9 +17,9 @@ export const ItemsPage = () =>
 	{
 		( async () =>
 		{
-			try {
 			setIsLoading(true)
-			const request = await getItems( 'user', uid, 'products' );
+			try {
+			const request = await getItems( 'products' );
 			setItems( request.data )
 			setIsLoading(false)
 			return request;
@@ -36,22 +36,14 @@ export const ItemsPage = () =>
 	}
 	return (
 		<>
-			<HStack>
+			<Stack spacing={2} direction='row' flexWrap='wrap' useFlexGap>
 				{ items?.map( ( item, i ) =>
 				(
 					items && !isLoading ? <div style={ { cursor: 'pointer' } } onClick={ () => onItemClicked( item.tempId ) } key={ i }>
 						<Item title={ item.documentName } price={ item.documentPrice } imageUrl={ item.documentImageUrl } />
 					</div> : <Holder key={ i } />
 				))}
-			</HStack>
+			</Stack>
 		</>
   )
 }
-
-const HStack = styled.div`
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 20px;
-`;

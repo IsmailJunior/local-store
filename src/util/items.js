@@ -1,11 +1,11 @@
-import { getDocs, collection, getDoc, doc } from 'firebase/firestore';
+import { getDocs, collection, getDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firebaseStore } from '../config/firebase'
 
-export const getItems = async ( collectionRefrence, uid, subCollection ) =>
+export const getItems = async ( collectionRefrence ) =>
 {
 	try
 	{
-		const documentCollectionRefrence = collection( firebaseStore, collectionRefrence, uid, subCollection );
+		const documentCollectionRefrence = collection( firebaseStore, collectionRefrence );
 		const documentsSnapshot = await getDocs( documentCollectionRefrence );
 		return {
 			data: documentsSnapshot.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) )
@@ -18,11 +18,11 @@ export const getItems = async ( collectionRefrence, uid, subCollection ) =>
 	}
 }
 
-export const getItem = async ( collectionRefrence, uid, subCollection, productId ) =>
+export const getItem = async ( collectionRefrence, productId ) =>
 {
 	try
 	{
-		const documentCollectionRefrence = collection( firebaseStore, collectionRefrence, uid, subCollection );
+		const documentCollectionRefrence = collection( firebaseStore, collectionRefrence );
 		const documentRefrence = doc( documentCollectionRefrence, productId );
 		const documentSnapshot = await getDoc( documentRefrence );
 		return {
@@ -34,3 +34,15 @@ export const getItem = async ( collectionRefrence, uid, subCollection, productId
 	}
 }
 
+export const deleteItem = async ( collectionReference, productId ) =>
+{
+	try
+	{
+		const documentCollectionRefrence = collection( firebaseStore, collectionReference );
+		const documentRefrence = doc( documentCollectionRefrence, productId );
+		await deleteDoc( documentRefrence );
+	} catch ( error )
+	{
+		console.log( error.message );
+	}
+};

@@ -1,11 +1,14 @@
 import {useState} from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { logIn } from '../featuers/user/userSlice'
 import Stack from '@mui/material/Stack'
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import '@fontsource/roboto/400.css'
 export const LoginForm = () =>
 {
 			const registerOptions = {
@@ -23,19 +26,21 @@ export const LoginForm = () =>
 		navigate( '/' )
 	}
 
-  return (
-	<form noValidate  onSubmit={handleSubmit(onSubmit)}>
+	return (
+	<Box sx={{border: '1px solid rgba(0,0,0,0.2)', p: '50px', borderRadius: '10px', height: '450px'}}>
+	<form style={{width: '350px'}} noValidate  onSubmit={handleSubmit(onSubmit)}>
 		<Stack spacing={ 2 }>
-			<h2>Log in</h2>
-		<Stack spacing={ 2 } direction='row'>
+		<Stack sx={{textAlign: 'center'}}>
+			<Typography variant='h5' gutterBottom>Log in to your account</Typography>
+			<Typography color='gray' variant='h7' gutterBottom>Provide your information</Typography>
+		</Stack>
 		<Stack spacing={1} direction='column'>
-			<TextField size='small' type='email' id='email' label='Email' name='email' {...register('email', registerOptions.email)}/>
+			<TextField fullWidth size='large' type='email' id='email' label='Email' name='email' {...register('email', registerOptions.email)}/>
 			<span style={ { color: 'red' } }>{ errors?.email && errors.email.message }</span>
 		</Stack>
 		<Stack spacing={1} direction='column'>
-			<TextField size='small' type='password' id='password' label='Password' name='password' { ...register( 'password', registerOptions.password ) } />
+			<TextField fullWidth size='large' type='password' id='password' label='Password' name='password' { ...register( 'password', registerOptions.password ) } />
 			<span style={ { color: 'red' } }>{ errors?.password && errors.password.message }</span>
-		</Stack>
 		</Stack>
 		<LoadingButton variant='contained' loading={loading} type='submit'>Log in</LoadingButton>
 		<Stack spacing={2} direction='row'>
@@ -44,6 +49,7 @@ export const LoginForm = () =>
 		</Stack>
 	</Stack>
 	</form>
+	</Box>
   )
 }
 
