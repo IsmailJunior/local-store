@@ -10,7 +10,8 @@ import { RegisterPage } from './pages/RegisterPage'
 import { LoginPage } from './pages/LoginPage'
 import { SellingPage } from './pages/SellingPage'
 import { ItemsPage } from './pages/ItemsPage'
-import {ItemPage} from './pages/ItemPage'
+import { ItemPage } from './pages/ItemPage'
+import {CartPage} from './pages/CartPage'
 const App = () =>
 {
   const [ isLoggedIn, setIsLoggedIn ] = useState( null );
@@ -44,7 +45,8 @@ const App = () =>
         <Route path='log-in' element={ <LoginPage /> } />
         <Route path='sell' element={ isLoggedIn ? <SellingPage /> : <LoginPage /> } />
         <Route path='products' element={ isLoggedIn ? <ItemsPage /> : <LoginPage /> } />
-        <Route path='products/:productId' element={isLoggedIn ? <ItemPage /> : <LoginPage />} />
+        <Route path='products/:productId' element={ isLoggedIn ? <ItemPage /> : <LoginPage /> } />
+        <Route path='cart' element={isLoggedIn ? <CartPage /> : <LoginPage />} />
       </Route>
     </Routes>
   )

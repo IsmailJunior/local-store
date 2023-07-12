@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
@@ -8,13 +8,16 @@ import Typography from '@mui/material/Typography'
 import SellIcon from '@mui/icons-material/Sell'
 import HomeIcon from '@mui/icons-material/Home'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
- import CategoryIcon from '@mui/icons-material/Category'
-import {logout, selectUser} from '../featuers/user/userSlice'
+import CategoryIcon from '@mui/icons-material/Category'
+import ShoppingCart from '@mui/icons-material/ShoppingCart'
+import { logout, selectUser } from '../featuers/user/userSlice'
+import {itemsSelectors} from '../featuers/cart/cartSlice'
 
 export const Navigation = () =>
 {
 	const dispatch = useDispatch();
-	const user = useSelector(selectUser)
+	const user = useSelector( selectUser )
+	const totalItems = useSelector( itemsSelectors.selectTotal )	
 	const onLogOutClicked = ( event ) =>
 	{
 		event.preventDefault();
@@ -49,6 +52,12 @@ export const Navigation = () =>
 		<Stack alignItems='center' spacing={ 1 } direction='row'>
 			<HomeIcon />
 			<Typography>Home</Typography>	
+		</Stack>
+		</Link>	
+		<Link style={{textDecoration: 'none'}} to='/cart'>
+		<Stack alignItems='center' spacing={ 1 } direction='row'>
+			<ShoppingCart />
+			<Typography>Cart {totalItems}</Typography>	
 		</Stack>
 		</Link>	
 		</Stack>
