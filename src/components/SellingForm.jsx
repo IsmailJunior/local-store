@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import {Offline, Online} from 'react-detect-offline'
 import { useForm } from 'react-hook-form'
 import { createDocument, updateDocument } from '../util/document'
 import { uploadFile } from '../util/upload'
 import Stack from '@mui/material/Stack'
 import Input from '@mui/material/Input'
 import LoadingButton from '@mui/lab/LoadingButton';
+import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
 export const SellingForm = () =>
@@ -70,8 +72,13 @@ export const SellingForm = () =>
 				<Stack spacing={1} direction='column'>
 					<Input  id='productImage' type='file' name='productImage' onChange={onFileChange}/>
 				</Stack>
-			</Stack>
-				<LoadingButton loading={loading} variant='contained' type="submit">Create</LoadingButton>
+				</Stack>
+				<Online>
+					<LoadingButton loading={loading} variant='contained' type="submit">Create</LoadingButton>
+				</Online>
+				<Offline>
+					<Button disabled variant='contained'>Please connect to internet to create an item!</Button>
+				</Offline>
 				</Stack>
 		</form>
 	</>
